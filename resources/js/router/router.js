@@ -25,6 +25,11 @@ const routes = [
         component: () => import("../views/blackjack.vue"),
     },
 
+    {
+        path: "/qwixx", 
+        component: () => import("../views/qwixx.vue"),
+    },
+
     {}
 ];
 
