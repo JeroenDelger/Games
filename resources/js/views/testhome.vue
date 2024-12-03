@@ -3,6 +3,6 @@
         <router-link to="/yathzee"> Yathzee </router-link><br/>
         <router-link to="/mastermind"> Mastermind </router-link><br/>
         <router-link to="/blackjack"> Blackjack </router-link><br/>
-        <router-link to="/quix"> Qwixx </router-link><br/>
+        <router-link to="/qwixx"> Qwixx </router-link><br/>
     </div>
 </template>
