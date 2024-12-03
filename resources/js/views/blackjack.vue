@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
     let Suits = ['Spade', 'Hearts', 'Clubs', 'Diamonds'];
     let Symbols = ['♠', '♥', '♣', '♦']
@@ -217,6 +217,24 @@ import { ref } from 'vue'
             Winnaar.value = 'Gelijk spel'
             return window.alert("Het is gelijkspel")
         }
+        DealerPoints.value = DealerPoints.value + AllePuntenDealer.value[i];
+    
+    if (DealerAce.value > 0 && DealerPoints.value + 10 + DealerAce.value < 22) {
+        DealerPoints.value = DealerPoints.value + 10 + DealerAce.value;
+    } else if (
+        DealerAce.value > 0 &&
+        DealerPoints.value + 10 + DealerAce.value > 21
+    ) {
+        DealerPoints.value = DealerPoints.value + DealerAce.value;
     }
-
+    if (DealerPoints.value > 21) {
+        Winnaar.value = "Player";
+        return window.alert("Je hebt gewonnen!");
+    } else if (DealerPoints.value > PlayerPoints.value) {
+        Winnaar.value = "Dealer";
+        return window.alert("Je hebt Verloren!");
+    } else if (DealerPoints.value <= PlayerPoints.value) {
+        DealerCard();
+    }
+}
 </script>
