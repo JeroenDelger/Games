@@ -7,232 +7,252 @@
         </select>
         <button @click="StartGame()">Start</button>
     </div>
-    <table v-if="GameOn == true">
-        <tr v-for="row in 10">
-            <td v-for="cell in 10">
-                <div
-                    :id="row + '' + cell"
-                    v-if="
-                        (row % 2 == 0 && cell % 2 != 0) ||
-                        (row % 2 != 0 && cell % 2 == 0)
-                    "
-                    :style="{
-                        width: '50px',
-                        height: '50px',
-                        border: '1px solid black',
-                        background: 'grey',
-                    }"
-                >
-                    <div v-for="steen in blackBrickPositions.length">
-                        <div
-                            v-if="
-                                row == blackBrickPositions[steen - 1][0] &&
-                                cell == blackBrickPositions[steen - 1][1] &&
-                                aanZet == 1 &&
-                                blackBrickPositions[steen - 1][2] == 'dam'
-                            "
-                            :style="{
-                                'border-radius': '50%',
-                                width: '40px',
-                                height: '40px',
-                                background: 'black',
-                                margin: '5px',
-                                'text-color': 'red',
-                            }"
-                            @click="
-                                dam(row, cell, blackBrickPositions[steen - 1])
-                            "
-                        >
+    <div v-if="GameOn == true">
+        <div v-if="aanZet == 0"><b>Wit is aan zet</b></div>
+        <div v-else><b>Zwart is aan zet</b></div>
+        <table>
+            <tr v-for="row in 10">
+                <td v-for="cell in 10">
+                    <div
+                        :id="row + '' + cell"
+                        v-if="
+                            (row % 2 == 0 && cell % 2 != 0) ||
+                            (row % 2 != 0 && cell % 2 == 0)
+                        "
+                        :style="{
+                            width: '50px',
+                            height: '50px',
+                            border: '1px solid black',
+                            background: 'grey',
+                        }"
+                    >
+                        <div v-for="steen in blackBrickPositions.length">
                             <div
+                                v-if="
+                                    row == blackBrickPositions[steen - 1][0] &&
+                                    cell == blackBrickPositions[steen - 1][1] &&
+                                    aanZet == 1 &&
+                                    blackBrickPositions[steen - 1][2] == 'dam'
+                                "
                                 :style="{
                                     'border-radius': '50%',
-                                    width: '20px',
-                                    height: '20px',
-                                    background: 'darkred',
-                                    position: 'absolute',
-                                    'margin-right': '-50%',
-                                    transform: 'translate(-50%, -50%)',
-                                    margin: '20px',
+                                    width: '40px',
+                                    height: '40px',
+                                    background: 'black',
+                                    margin: '5px',
+                                    'text-color': 'red',
                                 }"
-                            ></div>
-                        </div>
-                        <div
-                            v-else-if="
-                                row == blackBrickPositions[steen - 1][0] &&
-                                cell == blackBrickPositions[steen - 1][1] &&
-                                blackBrickPositions[steen - 1][2] == 'dam'
-                            "
-                            :style="{
-                                'border-radius': '50%',
-                                width: '40px',
-                                height: '40px',
-                                background: 'black',
-                                margin: '5px',
-                                'text-color': 'red',
-                            }"
-                        >
+                                @click="
+                                    dam(
+                                        row,
+                                        cell,
+                                        blackBrickPositions[steen - 1]
+                                    )
+                                "
+                            >
+                                <div
+                                    :style="{
+                                        'border-radius': '50%',
+                                        width: '20px',
+                                        height: '20px',
+                                        background: 'darkred',
+                                        position: 'absolute',
+                                        'margin-right': '-50%',
+                                        transform: 'translate(-50%, -50%)',
+                                        margin: '20px',
+                                    }"
+                                ></div>
+                            </div>
                             <div
+                                v-else-if="
+                                    row == blackBrickPositions[steen - 1][0] &&
+                                    cell == blackBrickPositions[steen - 1][1] &&
+                                    blackBrickPositions[steen - 1][2] == 'dam'
+                                "
                                 :style="{
                                     'border-radius': '50%',
-                                    width: '20px',
-                                    height: '20px',
-                                    background: 'darkred',
-                                    position: 'absolute',
-                                    'margin-right': '-50%',
-                                    transform: 'translate(-50%, -50%)',
-                                    margin: '20px',
+                                    width: '40px',
+                                    height: '40px',
+                                    background: 'black',
+                                    margin: '5px',
+                                    'text-color': 'red',
                                 }"
-                            ></div>
+                            >
+                                <div
+                                    :style="{
+                                        'border-radius': '50%',
+                                        width: '20px',
+                                        height: '20px',
+                                        background: 'darkred',
+                                        position: 'absolute',
+                                        'margin-right': '-50%',
+                                        transform: 'translate(-50%, -50%)',
+                                        margin: '20px',
+                                    }"
+                                ></div>
+                            </div>
                         </div>
-                    </div>
-                    <div v-for="steen in whiteBrickPositions.length">
-                        <div
-                            v-if="
-                                row == whiteBrickPositions[steen - 1][0] &&
-                                cell == whiteBrickPositions[steen - 1][1] &&
-                                aanZet == 0 &&
-                                whiteBrickPositions[steen - 1][2] == 'dam'
-                            "
-                            :style="{
-                                'border-radius': '50%',
-                                width: '40px',
-                                height: '40px',
-                                background: 'white',
-                                margin: '5px',
-                                'text-color': 'red',
-                            }"
-                            @click="
-                                dam(row, cell, whiteBrickPositions[steen - 1])
-                            "
-                        >
+                        <div v-for="steen in whiteBrickPositions.length">
                             <div
+                                v-if="
+                                    row == whiteBrickPositions[steen - 1][0] &&
+                                    cell == whiteBrickPositions[steen - 1][1] &&
+                                    aanZet == 0 &&
+                                    whiteBrickPositions[steen - 1][2] == 'dam'
+                                "
                                 :style="{
                                     'border-radius': '50%',
-                                    width: '20px',
-                                    height: '20px',
-                                    background: 'darkred',
-                                    position: 'absolute',
-                                    'margin-right': '-50%',
-                                    transform: 'translate(-50%, -50%)',
-                                    margin: '20px',
+                                    width: '40px',
+                                    height: '40px',
+                                    background: 'white',
+                                    margin: '5px',
+                                    'text-color': 'red',
                                 }"
-                            ></div>
-                        </div>
-                        <div
-                            v-else-if="
-                                row == whiteBrickPositions[steen - 1][0] &&
-                                cell == whiteBrickPositions[steen - 1][1] &&
-                                whiteBrickPositions[steen - 1][2] == 'dam'
-                            "
-                            :style="{
-                                'border-radius': '50%',
-                                width: '40px',
-                                height: '40px',
-                                background: 'white',
-                                margin: '5px',
-                                'text-color': 'red',
-                            }"
-                        >
+                                @click="
+                                    dam(
+                                        row,
+                                        cell,
+                                        whiteBrickPositions[steen - 1]
+                                    )
+                                "
+                            >
+                                <div
+                                    :style="{
+                                        'border-radius': '50%',
+                                        width: '20px',
+                                        height: '20px',
+                                        background: 'darkred',
+                                        position: 'absolute',
+                                        'margin-right': '-50%',
+                                        transform: 'translate(-50%, -50%)',
+                                        margin: '20px',
+                                    }"
+                                ></div>
+                            </div>
                             <div
+                                v-else-if="
+                                    row == whiteBrickPositions[steen - 1][0] &&
+                                    cell == whiteBrickPositions[steen - 1][1] &&
+                                    whiteBrickPositions[steen - 1][2] == 'dam'
+                                "
                                 :style="{
                                     'border-radius': '50%',
-                                    width: '20px',
-                                    height: '20px',
-                                    background: 'darkred',
-                                    position: 'absolute',
-                                    'margin-right': '-50%',
-                                    transform: 'translate(-50%, -50%)',
-                                    margin: '20px',
+                                    width: '40px',
+                                    height: '40px',
+                                    background: 'white',
+                                    margin: '5px',
+                                    'text-color': 'red',
                                 }"
-                            ></div>
+                            >
+                                <div
+                                    :style="{
+                                        'border-radius': '50%',
+                                        width: '20px',
+                                        height: '20px',
+                                        background: 'darkred',
+                                        position: 'absolute',
+                                        'margin-right': '-50%',
+                                        transform: 'translate(-50%, -50%)',
+                                        margin: '20px',
+                                    }"
+                                ></div>
+                            </div>
                         </div>
-                    </div>
-                    <div v-for="steen in blackBrickPositions.length">
-                        <div
-                            v-if="
-                                aanZet == 1 &&
-                                row == blackBrickPositions[steen - 1][0] &&
-                                cell == blackBrickPositions[steen - 1][1] &&
-                                brickSelected == false &&
-                                blackBrickPositions[steen - 1][2] == 'brick'
-                            "
-                            :style="{
-                                'border-radius': '50%',
-                                width: '40px',
-                                height: '40px',
-                                background: 'black',
-                                margin: '5px',
-                            }"
-                            @click="
-                                dam(row, cell, blackBrickPositions[steen - 1])
-                            "
-                        ></div>
+                        <div v-for="steen in blackBrickPositions.length">
+                            <div
+                                v-if="
+                                    aanZet == 1 &&
+                                    row == blackBrickPositions[steen - 1][0] &&
+                                    cell == blackBrickPositions[steen - 1][1] &&
+                                    brickSelected == false &&
+                                    blackBrickPositions[steen - 1][2] == 'brick'
+                                "
+                                :style="{
+                                    'border-radius': '50%',
+                                    width: '40px',
+                                    height: '40px',
+                                    background: 'black',
+                                    margin: '5px',
+                                }"
+                                @click="
+                                    dam(
+                                        row,
+                                        cell,
+                                        blackBrickPositions[steen - 1]
+                                    )
+                                "
+                            ></div>
 
-                        <div
-                            v-else-if="
-                                (aanZet == 0 || brickSelected == true) &&
-                                row == blackBrickPositions[steen - 1][0] &&
-                                cell == blackBrickPositions[steen - 1][1] &&
-                                blackBrickPositions[steen - 1][2] == 'brick'
-                            "
-                            :style="{
-                                'border-radius': '50%',
-                                width: '40px',
-                                height: '40px',
-                                background: 'black',
-                                margin: '5px',
-                            }"
-                        ></div>
-                    </div>
-                    <div v-for="steen in whiteBrickPositions.length">
-                        <div
-                            v-if="
-                                aanZet == 0 &&
-                                row == whiteBrickPositions[steen - 1][0] &&
-                                cell == whiteBrickPositions[steen - 1][1] &&
-                                brickSelected == false &&
-                                whiteBrickPositions[steen - 1][2] == 'brick'
-                            "
-                            :style="{
-                                'border-radius': '50%',
-                                width: '40px',
-                                height: '40px',
-                                background: 'white',
-                                margin: '5px',
-                            }"
-                            @click="
-                                dam(row, cell, whiteBrickPositions[steen - 1])
-                            "
-                        ></div>
+                            <div
+                                v-else-if="
+                                    (aanZet == 0 || brickSelected == true) &&
+                                    row == blackBrickPositions[steen - 1][0] &&
+                                    cell == blackBrickPositions[steen - 1][1] &&
+                                    blackBrickPositions[steen - 1][2] == 'brick'
+                                "
+                                :style="{
+                                    'border-radius': '50%',
+                                    width: '40px',
+                                    height: '40px',
+                                    background: 'black',
+                                    margin: '5px',
+                                }"
+                            ></div>
+                        </div>
+                        <div v-for="steen in whiteBrickPositions.length">
+                            <div
+                                v-if="
+                                    aanZet == 0 &&
+                                    row == whiteBrickPositions[steen - 1][0] &&
+                                    cell == whiteBrickPositions[steen - 1][1] &&
+                                    brickSelected == false &&
+                                    whiteBrickPositions[steen - 1][2] == 'brick'
+                                "
+                                :style="{
+                                    'border-radius': '50%',
+                                    width: '40px',
+                                    height: '40px',
+                                    background: 'white',
+                                    margin: '5px',
+                                }"
+                                @click="
+                                    dam(
+                                        row,
+                                        cell,
+                                        whiteBrickPositions[steen - 1]
+                                    )
+                                "
+                            ></div>
 
-                        <div
-                            v-else-if="
-                                (aanZet == 1 || brickSelected == true) &&
-                                row == whiteBrickPositions[steen - 1][0] &&
-                                cell == whiteBrickPositions[steen - 1][1] &&
-                                whiteBrickPositions[steen - 1][2] == 'brick'
-                            "
-                            :style="{
-                                'border-radius': '50%',
-                                width: '40px',
-                                height: '40px',
-                                background: 'white',
-                                margin: '5px',
-                            }"
-                        ></div>
+                            <div
+                                v-else-if="
+                                    (aanZet == 1 || brickSelected == true) &&
+                                    row == whiteBrickPositions[steen - 1][0] &&
+                                    cell == whiteBrickPositions[steen - 1][1] &&
+                                    whiteBrickPositions[steen - 1][2] == 'brick'
+                                "
+                                :style="{
+                                    'border-radius': '50%',
+                                    width: '40px',
+                                    height: '40px',
+                                    background: 'white',
+                                    margin: '5px',
+                                }"
+                            ></div>
+                        </div>
                     </div>
-                </div>
-                <div
-                    v-else
-                    :style="{
-                        width: '50px',
-                        height: '50px',
-                        border: '1px solid black',
-                    }"
-                ></div>
-            </td>
-        </tr>
-    </table>
+                    <div
+                        v-else
+                        :style="{
+                            width: '50px',
+                            height: '50px',
+                            border: '1px solid black',
+                        }"
+                    ></div>
+                </td>
+            </tr>
+        </table>
+    </div>
 </template>
 
 <script setup>
@@ -290,6 +310,7 @@ let brickSelected = ref(false);
 let aanZet = ref(0);
 let teststop = ref([false, false, false, false]);
 let kanSlaan = ref(false);
+let kanNiets = ref(false);
 
 function StartGame() {
     GameOn.value = true;
@@ -441,7 +462,7 @@ function kanNietSlaan(
                         move,
                         steen,
                     ];
-                }
+                } else kanNiets.value = true;
             }
         }
     }
@@ -590,6 +611,12 @@ function dam(r, c, steen) {
                 steen[2]
             );
         }
+    }
+    if (kanNiets.value == true) {
+        kanNiets.value = false;
+        kanSlaan.value = false;
+        brickSelected.value = false;
+        document.getElementById(r + "" + c).style.background = "grey";
     }
 }
 
