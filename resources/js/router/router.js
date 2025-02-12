@@ -30,7 +30,20 @@ const routes = [
         component: () => import("../views/qwixx.vue"),
     },
 
-    {}
+    {
+        path: "/schaakmat",
+        component: () => import("../views/schaakmat.vue"),
+    },
+
+    {
+        path: "/dammen",
+        component: () => import("../views/dammen.vue") 
+    },
+    {
+        path:"/coin",
+        component: ()=> import("../views/coinflip.vue")
+    }
+
 ];
 
 export default createRouter({
