@@ -15,6 +15,10 @@
         <table>
             <tr v-for="row in 8">
                 <td v-for="column in 8">
+                    <!-- TODO: gebruik reactive styling mbv css-classes -->
+                    <!-- TODO: met XOR kun je onderstaande 2 regels vervangen door: (row % 2 == 0 ^ column % 2 == 0) -->
+                     <!-- TODO: het enige verschil lijkt de background (grey of white). De rest van deze twee onderstaande codeblokken zijn gelijk.
+                      Je kunt dus met 1 code blok toe, en de background reactive maken -->
                     <div
                         :id="row + '' + column"
                         v-if="
@@ -110,6 +114,7 @@ let pieces = ref([
 
 let gameOn = ref(false);
 let typeOfPlayer = ref();
+// TODO: probeer alles in het Engels te schrijven
 let aanZet = ref("wit");
 let selectedPiece = ref(false);
 
@@ -172,6 +177,7 @@ var pieceFunction = {
     },
 
     pion: function (piece, row, column) {
+        // TODO: gebruik Engelse naamgeving (white)
         const direction = piece[3] === "wit" ? -1 : 1;
         var count = [0, 0];
 
@@ -274,6 +280,7 @@ function pieceMovement(
 }
 
 function acties(piece, row, column, targetRow, targetColumn) {
+    // TODO: vervang onderstaande selectors voor :class reactive bindings
     document.getElementById(targetRow + "" + targetColumn).style.background =
         "green";
     document
@@ -291,6 +298,7 @@ function acties(piece, row, column, targetRow, targetColumn) {
 
 function movePiece(evt) {
     const piece = evt.target.params[0];
+    // TODO: row en column hier onder zijn overbodig en kunnen weg?
     const row = evt.target.params[1];
     const column = evt.target.params[2];
     const targetRow = evt.target.params[3];
